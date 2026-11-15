@@ -1,7 +1,7 @@
 # prototype_v3.7
 
 A small HTML/CSS/JavaScript checklist site I built from scratch while learning JavaScript.
-I use it to demonstrate DevSecOps: security checks that run automatically on every change.
+Used to demonstrate DevSecOps: security checks that run automatically on every change.
 
 ## Run it locally
 
