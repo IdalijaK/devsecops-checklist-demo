@@ -1,0 +1,116 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6fa;
+    margin: 0;
+    padding: 0;
+}
+
+body.home-page {
+    line-height: 1.6;
+}
+
+header {
+    background: #50a050;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+nav {
+    background: #fcf3a6;
+    padding: 10px;
+    text-align: center;
+}
+
+body.about-page nav {
+    padding: 12px;
+}
+
+nav a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+main {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+}
+
+img {
+    width: 100%;
+    max-width: 600px;
+    display: block;
+    margin: 20px auto;
+    border-radius: 8px;
+}
+
+h1,
+h2 {
+    color: #142230;
+}
+
+ul {
+    max-width: 400px;
+    margin: auto;
+    background: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    list-style: none;
+}
+
+#task-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    max-width: 440px;
+    margin: 20px auto;
+}
+
+#task-input {
+    flex: 1;
+    min-width: 180px;
+    padding: 8px;
+}
+
+#checklist li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 6px 0;
+}
+
+#checklist label {
+    flex: 1;
+}
+
+#task-status {
+    min-height: 1.5em;
+    text-align: center;
+}
+
+#progress {
+    text-align: center;
+    font-weight: bold;
+}
+
+#form-message {
+    font-weight: bold;
+}
+
+.checklist-heading {
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    background: #50a050;
+    color: white;
+    margin-top: 20px;
+}

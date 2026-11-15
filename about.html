@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link rel="stylesheet" href="css/about.css">
+</head>
+
+<body class="about-page">
+
+<header>
+    <h1>About Me</h1>
+    <p>Totally normal page telling you more stuff</p>
+</header>
+
+<nav>
+    <a href="index.html">Home</a> |
+    <a href="about.html">About</a> |
+    <a href="contact.html">Contact</a>
+</nav>
+
+<main>
+
+    <p id="message">There's a button below...</p>
+    <button onclick="changeMessage()">DO NOT CLICK HERE</button> 
+
+
+    <h2>What is this site?</h2>
+    <p>
+        This is a simple beginner website made for practice.
+    </p>
+
+    <p>
+        Learning HTML, CSS and JS and keeping things minimal.
+    </p>
+</main>
+
+<footer>
+    <p>&copy; 2025 IDA</p>
+</footer>
+
+<script>
+    function changeMessage() {
+        document.getElementById("message").innerText =
+            "WHAT HAVE YOU DONE!";
+    }
+</script>
+
+</body>
+</html>

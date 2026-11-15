@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body class="home-page">
+
+    <!-- header -->
+    <header>
+        <h1>Welcome to My Website</h1>
+        <p>It has a checklist and a cat</p>
+    </header>
+
+    <!-- nav -->
+    <nav>
+        <a href="index.html">Home</a> |
+        <a href="about.html">About</a> |
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <hr>
+
+    <!-- header 2 paragraph cute cat image -->
+    <main>
+        <h2>About This Cat Checklist</h2>
+        <p>Minimal homepage that has a cat and a checklist</p>
+
+        <img src="https://plus.unsplash.com/premium_photo-1677545183884-421157b2da02?q=80&w=1472&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Placeholder image of a cute cat that looks like a sunflower">
+    </main>
+
+    <h1 class="checklist-heading">My Cat Checklist</h1>
+
+    <form id="task-form">
+        <label for="task-input">Add a task:</label>
+        <input id="task-input" type="text" maxlength="100" required>
+        <button type="submit">Add task</button>
+    </form>
+
+    <ul id="checklist" aria-label="Cat care tasks"></ul>
+    <p id="task-status" aria-live="polite"></p>
+
+    <p id="progress" aria-live="polite">0% done</p>
+
+    <hr>
+    <!-- footer -->
+    <footer>
+        <p>&copy; 2025 IDA</p>
+    </footer>
+
+    <!-- Checklist logic is in src/checklist.js,
+         the same file the unit tests import. -->
+    <script type="module">
+        import { calculateProgress, isComplete, removeTask } from "./src/checklist.js";
+
+        const storageKey = "cat-checklist-tasks";
+        const defaultTasks = [
+            { text: "Feed the cat", completed: false, isDefault: true },
+            { text: "Change the cat's water", completed: false, isDefault: true },
+            { text: "Play with the cat", completed: false, isDefault: true },
+            { text: "Brush the cat's teeth", completed: false, isDefault: true }
+        ];
+        const checklist = document.getElementById("checklist");
+        const taskForm = document.getElementById("task-form");
+        const taskInput = document.getElementById("task-input");
+        const taskStatus = document.getElementById("task-status");
+        const progress = document.getElementById("progress");
+        function loadTasks() {
+            try {
+                const savedTasks = localStorage.getItem(storageKey);
+                return savedTasks
+                    ? JSON.parse(savedTasks)
+                    : defaultTasks.map((task) => ({ ...task }));
+            } catch (error) {
+                console.error("Could not load tasks.", error);
+                taskStatus.textContent = "Could not load saved tasks in this browser.";
+                return defaultTasks.map((task) => ({ ...task }));
+            }
+        }
+
+        let tasks = loadTasks();
+
+        function saveTasks() {
+            try {
+                localStorage.setItem(storageKey, JSON.stringify(tasks));
+                taskStatus.textContent = "";
+            } catch (error) {
+                console.error("Could not save tasks.", error);
+                taskStatus.textContent = "Could not save tasks in this browser.";
+            }
+        }
+
+        function updateProgress() {
+            const done = tasks.filter((task) => task.completed).length;
+            const total = tasks.length;
+            progress.textContent = isComplete(done, total)
+                ? "100% done - all finished!"
+                : `${calculateProgress(done, total)}% done`;
+        }
+
+        function renderTasks() {
+            checklist.textContent = "";
+
+            tasks.forEach((task, index) => {
+                const item = document.createElement("li");
+                const label = document.createElement("label");
+                const checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.checked = task.completed;
+                checkbox.addEventListener("change", () => {
+                    task.completed = checkbox.checked;
+                    saveTasks();
+                    updateProgress();
+                });
+
+                label.append(checkbox, ` ${task.text}`);
+
+                item.append(label);
+                if (!task.isDefault) {
+                    const removeButton = document.createElement("button");
+                    removeButton.type = "button";
+                    removeButton.textContent = "Remove";
+                    removeButton.setAttribute("aria-label", `Remove ${task.text}`);
+                    removeButton.addEventListener("click", () => {
+                        tasks = removeTask(tasks, index);
+                        renderTasks();
+                    });
+                    item.append(removeButton);
+                }
+                checklist.append(item);
+            });
+
+            updateProgress();
+        }
+
+        taskForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const text = taskInput.value.trim();
+            if (!text) {
+                taskStatus.textContent = "Enter a task before adding it.";
+                return;
+            }
+
+            tasks.push({ text, completed: false, isDefault: false });
+            saveTasks();
+            renderTasks();
+            taskInput.value = "";
+            taskInput.focus();
+        });
+
+        saveTasks();
+        renderTasks();
+    </script>
+
+</body>
+</html>

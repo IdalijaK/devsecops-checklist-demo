@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Least privilege: by default every job can only read the repo.
+permissions:
+  contents: read
+
+jobs:
+  unit-tests:
+    name: Unit tests (Vitest)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false   # don't leave the GitHub token on disk
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci                    # installs exactly what's in package-lock.json
+      - name: Verify package signatures
+        run: npm audit signatures      # checks packages were signed by the npm registry
+      - run: npm test
+
+  dependency-scan:
+    name: Dependency scan (npm audit)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      # Exit code 1 on any high or critical advisory = the build fails.
+      - name: Fail on high or critical vulnerabilities
+        run: npm audit --audit-level=high
+
+  dependency-review:
+    name: Dependency review (new packages in this PR)
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pull-requests: write             # so it can comment on the PR
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      # Fails if the PR *adds* a package with a high or critical advisory.
+      - uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: high
+          comment-summary-in-pr: on-failure
