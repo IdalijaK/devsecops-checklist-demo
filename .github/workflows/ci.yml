@@ -21,7 +21,7 @@ jobs:
           persist-credentials: false   # don't leave the GitHub token on disk
       - uses: actions/setup-node@v5
         with:
-          node-version: 22
+          node-version: 24
           cache: npm
       - run: npm ci                    # installs exactly what's in package-lock.json
       - name: Verify package signatures
@@ -38,7 +38,7 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-node@v5
         with:
-          node-version: 22
+          node-version: 24
       # Exit code 1 on any high or critical advisory = the build fails.
       - name: Fail on high or critical vulnerabilities
         run: npm audit --audit-level=high
