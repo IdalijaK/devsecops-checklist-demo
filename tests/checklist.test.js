@@ -27,7 +27,7 @@ describe("calculateProgress", () => {
         expect(calculateProgress(5, 7)).toBe(71);
     });
 
-    // // delete the guard in src/checklist.js to see this go red
+    // delete the guard in src/checklist.js to see this go red
     test("empty checklist is 0%, not NaN", () => {
         expect(calculateProgress(0, 0)).toBe(0);
     });

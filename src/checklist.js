@@ -1,4 +1,4 @@
-// //  application logic (no DOM), imported by index.html, contact.html & Vitest tests.
+// application logic (no DOM), imported by index.html, contact.html & Vitest tests.
 
 export function calculateProgress(completed, total) {
     if (total === 0) return 0; // guard: 0 / 0 would be NaN
