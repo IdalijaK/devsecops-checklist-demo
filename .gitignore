@@ -1,3 +1,6 @@
 node_modules/
 .vscode/
 *.log
+note.txt
+test-results/
+playwright-report/

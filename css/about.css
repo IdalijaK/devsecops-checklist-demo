@@ -1,19 +1,24 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f6fa;
+    background-color: var(--color-page);
+    color: var(--color-text);
     margin: 0;
     padding: 0;
 }
 
 header {
-    background: #50a050;
-    color: white;
+    background: var(--color-primary);
+    color: var(--color-surface);
     padding: 20px;
     text-align: center;
 }
 
+header h1 {
+    color: var(--color-surface);
+}
+
 nav {
-    background: #fcf3a6;
+    background: var(--color-navigation);
     padding: 10px;
     text-align: center;
 }
@@ -25,7 +30,7 @@ body.about-page nav {
 nav a {
     margin: 0 10px;
     text-decoration: none;
-    color: #333;
+    color: var(--color-primary);
     font-weight: bold;
 }
 
@@ -37,13 +42,13 @@ main {
 
 h1,
 h2 {
-    color: #142230;
+    color: var(--color-text);
 }
 
 footer {
     text-align: center;
     padding: 15px;
-    background: #50a050;
-    color: white;
+    background: var(--color-primary);
+    color: var(--color-surface);
     margin-top: 20px;
 }

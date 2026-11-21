@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile</title>
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/mobile.css">
+</head>
+
+<body class="mobile-page">
+
+<header>
+    <h1>Mobile Edition</h1>
+    <p>Experience this site as it was meant to be seen: in 2007</p>
+</header>
+
+<nav>
+    <a href="index.html">Home</a> |
+    <a href="about.html">About</a> |
+    <a href="contact.html">Contact</a> |
+    <a href="mobile.html">Mobile</a>
+</nav>
+
+<main>
+    <p class="intro">
+        Like Inspect &rarr; device toolbar, but with more nostalgia.
+        Screen: 320 &times; 480. Network: EDGE (probably).
+    </p>
+
+    <div class="controls">
+        <button type="button" id="rotate-button">Rotate phone</button>
+        <span id="phone-status" aria-live="polite"></span>
+    </div>
+
+    <div class="phone" id="phone">
+        <div class="speaker"></div>
+
+        <div class="screen">
+            <div class="status-bar" aria-hidden="true">
+                <span>EDGE</span>
+                <span id="clock">9:41</span>
+                <span>12%</span>
+            </div>
+            <iframe id="phone-frame" src="index.html" title="This site on a 320 by 480 phone screen"></iframe>
+        </div>
+
+        <button type="button" class="home-button" id="home-button" aria-label="Home button: go back to the homepage"></button>
+    </div>
+</main>
+
+<!-- Shown instead of the phone if mobile.html is opened INSIDE the phone -->
+<div id="inception" hidden>
+    <p>Really? A phone inside a phone?</p>
+    <p>Nice try. Press the home button.</p>
+</div>
+
+<footer>
+    <p>&copy; 2025 IDA</p>
+</footer>
+
+<script>
+    // If this page is loaded inside the phone's iframe, don't draw another phone
+    if (window.self !== window.top) {
+        document.body.classList.add("inside-phone");
+        document.getElementById("inception").hidden = false;
+    }
+
+    const phone = document.getElementById("phone");
+    const frame = document.getElementById("phone-frame");
+    const status = document.getElementById("phone-status");
+    const clock = document.getElementById("clock");
+
+    document.getElementById("rotate-button").addEventListener("click", () => {
+        const landscape = phone.classList.toggle("landscape");
+        status.textContent = landscape
+            ? "Landscape: 480 × 320. Accelerometer engaged."
+            : "Portrait: 320 × 480. Back to normal.";
+    });
+
+    document.getElementById("home-button").addEventListener("click", () => {
+        frame.src = "index.html";
+        status.textContent = "Home button pressed. Very satisfying click.";
+    });
+
+    function updateClock() {
+        clock.textContent = new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+    }
+    updateClock();
+    setInterval(updateClock, 30000);
+</script>
+
+</body>
+</html>

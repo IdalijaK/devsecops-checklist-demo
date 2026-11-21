@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
+    <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body class="home-page">
@@ -16,9 +17,10 @@
 
     <!-- nav -->
     <nav>
-        <a href="index.html">Home</a> |
-        <a href="about.html">About</a> |
-        <a href="contact.html">Contact</a>
+    <a href="index.html">Home</a> |
+    <a href="about.html">About</a> |
+    <a href="contact.html">Contact</a> |
+    <a href="mobile.html">Mobile</a>
     </nav>
 
     <hr>
@@ -125,6 +127,7 @@
                     removeButton.setAttribute("aria-label", `Remove ${task.text}`);
                     removeButton.addEventListener("click", () => {
                         tasks = removeTask(tasks, index);
+                        saveTasks();
                         renderTasks();
                     });
                     item.append(removeButton);

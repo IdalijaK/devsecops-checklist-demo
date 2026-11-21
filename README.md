@@ -1,7 +1,7 @@
-# prototype_v3.7
+# devsecops-checklist-demo
 
 A small HTML/CSS/JavaScript checklist site I built from scratch while learning JavaScript.
-I use it to demonstrate DevSecOps: security checks that run automatically on every change.
+Used to demonstrate DevSecOps: security checks that run automatically on every change.
 
 ## Run it locally
 
@@ -11,11 +11,28 @@ I use it to demonstrate DevSecOps: security checks that run automatically on eve
 
 Then open http://localhost:8000
 
+## Browser tests
+
+Install the Playwright browser once, then run the end-to-end tests:
+
+    npx playwright install chromium
+    npm run test:e2e
+
+The Playwright configuration starts the local site server automatically.
+
+The browser suite separates responsibilities:
+
+- `e2e/*.spec.ts` contains test scenarios.
+- `e2e/pages/*.page.ts` contains UI page objects.
+- `e2e/api/*.api.ts` contains HTTP API clients.
+- `e2e/test-data/*.ts` contains test data.
+
 ## Security checks in this repo
 
 | Check | What it does | Standard |
 |---|---|---|
 | Unit tests (Vitest) | Checks the logic works on every pull request | NCSC 1.3 |
+| Playwright tests (UI + API) | Checks user journeys in a browser and that every page and file responds correctly | NCSC 1.3 |
 | Dependency scan (`npm audit`) | Fails on high or critical known vulnerabilities in packages | NCSC 1.2, 3.3 · OWASP A03:2025 |
 | Dependency review | Blocks pull requests that add a vulnerable package | NCSC 1.2 |
 | CodeQL | Scans my own code for bugs like cross-site scripting | NCSC 1.4 · OWASP A05:2025 |
