@@ -17,9 +17,10 @@
 
     <!-- nav -->
     <nav>
-        <a href="index.html">Home</a> |
-        <a href="about.html">About</a> |
-        <a href="contact.html">Contact</a>
+    <a href="index.html">Home</a> |
+    <a href="about.html">About</a> |
+    <a href="contact.html">Contact</a> |
+    <a href="mobile.html">Mobile</a>
     </nav>
 
     <hr>
@@ -126,6 +127,7 @@
                     removeButton.setAttribute("aria-label", `Remove ${task.text}`);
                     removeButton.addEventListener("click", () => {
                         tasks = removeTask(tasks, index);
+                        saveTasks();
                         renderTasks();
                     });
                     item.append(removeButton);

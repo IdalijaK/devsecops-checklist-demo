@@ -1,4 +1,4 @@
-# prototype_v3.7
+# devsecops-checklist-demo
 
 A small HTML/CSS/JavaScript checklist site I built from scratch while learning JavaScript.
 Used to demonstrate DevSecOps: security checks that run automatically on every change.
@@ -10,6 +10,22 @@ Used to demonstrate DevSecOps: security checks that run automatically on every c
     py -m http.server 8000 --bind 127.0.0.1
 
 Then open http://localhost:8000
+
+## Browser tests
+
+Install the Playwright browser once, then run the end-to-end tests:
+
+    npx playwright install chromium
+    npm run test:e2e
+
+The Playwright configuration starts the local site server automatically.
+
+The browser suite separates responsibilities:
+
+- `e2e/*.spec.ts` contains test scenarios.
+- `e2e/pages/*.page.ts` contains UI page objects.
+- `e2e/api/*.api.ts` contains HTTP API clients.
+- `e2e/test-data/*.ts` contains test data.
 
 ## Security checks in this repo
 
