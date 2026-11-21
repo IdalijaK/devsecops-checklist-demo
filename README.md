@@ -32,6 +32,7 @@ The browser suite separates responsibilities:
 | Check | What it does | Standard |
 |---|---|---|
 | Unit tests (Vitest) | Checks the logic works on every pull request | NCSC 1.3 |
+| Playwright tests (UI + API) | Checks user journeys in a browser and that every page and file responds correctly | NCSC 1.3 |
 | Dependency scan (`npm audit`) | Fails on high or critical known vulnerabilities in packages | NCSC 1.2, 3.3 · OWASP A03:2025 |
 | Dependency review | Blocks pull requests that add a vulnerable package | NCSC 1.2 |
 | CodeQL | Scans my own code for bugs like cross-site scripting | NCSC 1.4 · OWASP A05:2025 |
