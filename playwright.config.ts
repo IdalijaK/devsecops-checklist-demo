@@ -12,8 +12,10 @@ export default defineConfig({
     outputDir: "test-results",          // where evidence goes (this is the default)
 
     reporter: [
-        ["list"],                                          // readable output in the terminal
-        ["html", { outputFolder: "playwright-report", open: "never" }]
+        ["list"],                                              // readable output in the terminal
+        ["html", { outputFolder: "playwright-report", open: "never" }],
+        ["json", { outputFile: "playwright-results.json" }],   // read by the CI summary script
+        ["github"]                                             // shows failures as annotations on GitHub
     ],
 
 /*     use: {

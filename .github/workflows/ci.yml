@@ -79,6 +79,10 @@ jobs:
       # Starts the local site server itself (webServer in playwright.config.ts).
       - name: Run UI and API tests
         run: npm run test:e2e
+      # Always write the summary, pass or fail (skipped only if the run is cancelled).
+      - name: Write Playwright summary
+        if: ${{ !cancelled() }}
+        run: node scripts/playwright-summary.mjs
       # Only on failure: download from the run's Summary page to see what broke.
       - name: Upload Playwright evidence
         if: failure()
