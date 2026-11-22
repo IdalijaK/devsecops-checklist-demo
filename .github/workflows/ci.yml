@@ -82,7 +82,7 @@ jobs:
       # Only on failure: download from the run's Summary page to see what broke.
       - name: Upload Playwright evidence
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: playwright-evidence
           path: |
