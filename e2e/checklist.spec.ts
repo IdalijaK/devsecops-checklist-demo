@@ -3,6 +3,32 @@ import { ChecklistPage } from "./pages/checklist.page";
 import { checklistData } from "./test-data/site-data";
 
 test.describe("cat checklist", () => {
+    test("shows the checklist percentage as tasks are completed", async ({ page }) => {
+        const checklist = new ChecklistPage(page);
+
+        await checklist.open();
+
+        await expect(checklist.progress).toHaveText(checklistData.initialProgress);
+
+        const defaultTasks = [
+            "Feed the cat",
+            "Change the cat's water",
+            "Play with the cat",
+            "Brush the cat's teeth"
+        ];
+        const progressValues = [
+            checklistData.quarterProgress,
+            checklistData.halfProgress,
+            checklistData.threeQuarterProgress,
+            checklistData.fullyCompleteProgress
+        ];
+
+        for (let index = 0; index < defaultTasks.length; index++) {
+            await checklist.taskCheckbox(defaultTasks[index]).check();
+            await expect(checklist.progress).toHaveText(progressValues[index]);
+        }
+    });
+
     test("adds a task, persists its completion, and removes it", async ({ page }) => {
         const checklist = new ChecklistPage(page);
 
