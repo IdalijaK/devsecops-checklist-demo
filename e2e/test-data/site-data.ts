@@ -2,7 +2,11 @@ export const checklistData = {
     defaultTaskCount: 4,
     customTask: "Buy cat food",
     initialProgress: "0% done",
-    completedProgress: "20% done"
+    completedProgress: "20% done",
+    quarterProgress: "25% done",
+    halfProgress: "50% done",
+    threeQuarterProgress: "75% done",
+    fullyCompleteProgress: "100% done - all finished!"
 };
 
 export const contactData = {
