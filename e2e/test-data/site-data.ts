@@ -9,7 +9,7 @@ export const contactData = {
     invalidEmail: "not-an-email",
     invalidMessage: "Please enter a valid email address.",
     validEmail: "cat@example.com",
-    validMessage: "Thanks for nothing! We won't be in touch."
+    validMessage: "Thanks! This is a demo form, so nothing was sent."
 };
 
 export const mobileData = {
