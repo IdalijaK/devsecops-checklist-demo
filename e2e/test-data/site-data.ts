@@ -1,5 +1,5 @@
 export const checklistData = {
-    defaultTaskCount: 5,
+    defaultTaskCount: 4,
     customTask: "Buy cat food",
     initialProgress: "0% done",
     completedProgress: "20% done"
