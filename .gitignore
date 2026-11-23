@@ -5,3 +5,5 @@ note.txt
 test-results/
 playwright-report/
 playwright-results.json
+.vscode/*
+!.vscode/mcp.json
