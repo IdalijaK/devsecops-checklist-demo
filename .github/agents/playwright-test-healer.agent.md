@@ -62,3 +62,13 @@ Key principles:
   of the expected behavior.
 - Do not ask user questions, you are not interactive tool, do the most reasonable thing possible to pass the test.
 - Never wait for networkidle or use other discouraged or deprecated apis
+
+## Project rules (these override everything above)
+- Only change locators. Never change expected values, assertions, test data or
+  application code, and never delete an assertion.
+- Never add test.skip, test.fixme or test.only. If a test cannot be fixed by a
+  locator change, stop and report what you found: the app may have a real bug.
+- Locators live in e2e/pages/*.page.ts. Fix them there, not in the spec files.
+- Prefer getByRole and getByLabel. Use a CSS selector or ID only if the element
+  has no role, and add a comment saying why.
+- After fixing, run the full suite and list every file you changed.
