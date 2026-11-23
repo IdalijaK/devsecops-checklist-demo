@@ -1,4 +1,4 @@
-# devsecops-checklist-demo
+© 2026 Ida. All rights reserved. Shared as a portfolio piece; please don't reuse without permission.
 
 [![CI](https://github.com/IdalijaK/devsecops-checklist-demo/actions/workflows/ci.yml/badge.svg)](https://github.com/IdalijaK/devsecops-checklist-demo/actions/workflows/ci.yml)
 [![CodeQL](https://github.com/IdalijaK/devsecops-checklist-demo/actions/workflows/codeql.yml/badge.svg)](https://github.com/IdalijaK/devsecops-checklist-demo/actions/workflows/codeql.yml)
