@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://images.unsplash.com; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <title>Cat Checklist - About</title>
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/about.css">
 </head>
@@ -16,16 +17,16 @@
 </header>
 
 <nav>
-    <a href="index.html">Home</a> |
-    <a href="about.html">About</a> |
-    <a href="contact.html">Contact</a> |
+    <a href="index.html">Home</a> <span aria-hidden="true">|</span>
+    <a href="about.html" aria-current="page">About</a> <span aria-hidden="true">|</span>
+    <a href="contact.html">Contact</a> <span aria-hidden="true">|</span>
     <a href="mobile.html">Mobile</a>
 </nav>
 
 <main>
 
-    <p id="message">There's a button below...</p>
-    <button onclick="changeMessage()">Click Here</button> 
+    <p id="message" aria-live="polite">There's a button below...</p>
+    <button type="button" id="surprise-button">Change the message</button>
 
 
     <h2>What is this site?</h2>
@@ -39,15 +40,10 @@
 </main>
 
 <footer>
-    <p>&copy; 2025 IDA</p>
+    <p>&copy; 2026 IDA</p>
 </footer>
 
-<script>
-    function changeMessage() {
-        document.getElementById("message").innerText =
-            "WHAT HAVE YOU DONE!";
-    }
-</script>
+<script src="src/about.js" defer></script>
 
 </body>
 </html>

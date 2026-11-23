@@ -54,4 +54,26 @@ test.describe("cat checklist", () => {
         await page.reload();
         await expect(checklist.taskCheckbox(checklistData.customTask)).toHaveCount(0);
     });
+
+    for (const savedValue of checklistData.invalidSavedTasks) {
+        test(`falls back to the default tasks when saved data is ${savedValue}`, async ({ page }) => {
+            const checklist = new ChecklistPage(page);
+            await checklist.seedSavedTasks(savedValue);
+
+            await checklist.open();
+
+            await expect(checklist.taskItems).toHaveCount(checklistData.defaultTaskCount);
+            await expect(checklist.taskStatus).toHaveText(checklistData.loadFailedMessage);
+        });
+    }
+
+    test("keeps keyboard focus in the form after removing a task", async ({ page }) => {
+        const checklist = new ChecklistPage(page);
+        await checklist.open();
+        await checklist.addTask(checklistData.customTask);
+
+        await checklist.removeTask(checklistData.customTask);
+
+        await expect(checklist.taskInput).toBeFocused();
+    });
 });

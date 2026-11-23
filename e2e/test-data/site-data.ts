@@ -6,7 +6,10 @@ export const checklistData = {
     quarterProgress: "25% done",
     halfProgress: "50% done",
     threeQuarterProgress: "75% done",
-    fullyCompleteProgress: "100% done - all finished!"
+    fullyCompleteProgress: "100% done - all finished!",
+    // Saved values that parse or fail in different ways; each must fall back to the defaults.
+    invalidSavedTasks: ["not json{", "null", "{}", "[{\"text\":1}]"],
+    loadFailedMessage: "Could not load your saved tasks, so the default list is shown."
 };
 
 export const contactData = {

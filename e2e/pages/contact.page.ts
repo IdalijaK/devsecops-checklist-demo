@@ -10,7 +10,7 @@ export class ContactPage extends BasePage {
         super(page);
         this.email = page.getByLabel("Email:");
         this.sendButton = page.getByRole("button", { name: "Send" });
-        this.formMessage = page.locator("#form-message");
+        this.formMessage = page.getByRole("status");
     }
 
     async open() {
