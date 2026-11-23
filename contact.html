@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://images.unsplash.com; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <title>Cat Checklist - Contact</title>
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/contact.css">
 </head>
@@ -15,29 +16,29 @@
 </header>
 
 <nav>
-    <a href="index.html">Home</a> |
-    <a href="about.html">About</a> |
-    <a href="contact.html">Contact</a> |
+    <a href="index.html">Home</a> <span aria-hidden="true">|</span>
+    <a href="about.html">About</a> <span aria-hidden="true">|</span>
+    <a href="contact.html" aria-current="page">Contact</a> <span aria-hidden="true">|</span>
     <a href="mobile.html">Mobile</a>
 </nav>
 
 <main>
-    <p>Fill your details and we will contact you back</p>
+    <p>This is a demo form for practising tests. Nothing you enter is sent anywhere.</p>
 
 <form id="contact-form" novalidate>
     <label for="name">Name:</label>
     <br>
-    <input type="text" id="name">
+    <input type="text" id="name" autocomplete="name">
     <br>
     <br>
     <label for="email">Email:</label>
     <br>
-    <input type="email" id="email" aria-invalid="false" aria-errormessage="form-message">
+    <input type="email" id="email" autocomplete="email" aria-invalid="false" aria-errormessage="form-message">
     <br>
     <br>
     <label for="phone">Phone Number:</label>
     <br>
-    <input type="tel" id="phone">
+    <input type="tel" id="phone" autocomplete="tel">
     <br>
     <br>
 
@@ -47,39 +48,14 @@
     <button type="submit">Send</button>
 </form>
 
-<p id="form-message" aria-live="polite"></p>
+<p id="form-message" role="status" aria-live="polite"></p>
 </main>
 
 <footer>
-    <p>&copy; 2025 IDA</p>
+    <p>&copy; 2026 IDA</p>
 </footer>
 
-<!-- Same isValidEmail that checklist.test.js covers. -->
-<script type="module">
-    import { isValidEmail } from "./src/checklist.js";
-
-    const form = document.getElementById("contact-form");
-    const message = document.getElementById("form-message");
-    const emailInput = document.getElementById("email");
-
-    form.addEventListener("submit", (event) => {
-        event.preventDefault(); // practice site: nothing is actually sent
-        const validEmail = isValidEmail(emailInput.value);
-        emailInput.setAttribute("aria-invalid", String(!validEmail));
-        message.classList.toggle("is-error", !validEmail);
-        message.textContent = validEmail
-            ? "Thanks! This is a demo form, so nothing was sent."
-            : "Please enter a valid email address.";
-    });
-
-    emailInput.addEventListener("input", () => {
-        if (emailInput.getAttribute("aria-invalid") === "true" && isValidEmail(emailInput.value)) {
-            emailInput.setAttribute("aria-invalid", "false");
-            message.classList.remove("is-error");
-            message.textContent = "";
-        }
-    });
-</script>
+<script type="module" src="src/contact.js"></script>
 
 </body>
 </html>

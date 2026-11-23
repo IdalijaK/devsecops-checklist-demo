@@ -19,4 +19,22 @@ export function isValidEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim());
 }
 
+// Saved data comes from outside the app (localStorage), so check it before trusting it.
+export function parseTasks(savedJson, defaultTasks) {
+    const freshDefaults = () => defaultTasks.map((task) => ({ ...task }));
+    if (savedJson === null) return { tasks: freshDefaults(), loadFailed: false };
 
+    try {
+        const parsed = JSON.parse(savedJson);
+        const isValid = Array.isArray(parsed) && parsed.every((task) =>
+            task !== null &&
+            typeof task === "object" &&
+            typeof task.text === "string" &&
+            typeof task.completed === "boolean");
+        return isValid
+            ? { tasks: parsed, loadFailed: false }
+            : { tasks: freshDefaults(), loadFailed: true };
+    } catch {
+        return { tasks: freshDefaults(), loadFailed: true };
+    }
+}

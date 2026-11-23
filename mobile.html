@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobile</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://images.unsplash.com; object-src 'none'; base-uri 'self'; form-action 'self'">
+    <title>Cat Checklist - Mobile</title>
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/mobile.css">
 </head>
@@ -16,10 +17,10 @@
 </header>
 
 <nav>
-    <a href="index.html">Home</a> |
-    <a href="about.html">About</a> |
-    <a href="contact.html">Contact</a> |
-    <a href="mobile.html">Mobile</a>
+    <a href="index.html">Home</a> <span aria-hidden="true">|</span>
+    <a href="about.html">About</a> <span aria-hidden="true">|</span>
+    <a href="contact.html">Contact</a> <span aria-hidden="true">|</span>
+    <a href="mobile.html" aria-current="page">Mobile</a>
 </nav>
 
 <main>
@@ -30,7 +31,7 @@
 
     <div class="controls">
         <button type="button" id="rotate-button">Rotate phone</button>
-        <span id="phone-status" aria-live="polite"></span>
+        <span id="phone-status" role="status" aria-live="polite"></span>
     </div>
 
     <div class="phone" id="phone">
@@ -56,39 +57,10 @@
 </div>
 
 <footer>
-    <p>&copy; 2025 IDA</p>
+    <p>&copy; 2026 IDA</p>
 </footer>
 
-<script>
-    // If this page is loaded inside the phone's iframe, don't draw another phone
-    if (window.self !== window.top) {
-        document.body.classList.add("inside-phone");
-        document.getElementById("inception").hidden = false;
-    }
-
-    const phone = document.getElementById("phone");
-    const frame = document.getElementById("phone-frame");
-    const status = document.getElementById("phone-status");
-    const clock = document.getElementById("clock");
-
-    document.getElementById("rotate-button").addEventListener("click", () => {
-        const landscape = phone.classList.toggle("landscape");
-        status.textContent = landscape
-            ? "Landscape: 480 × 320. Accelerometer engaged."
-            : "Portrait: 320 × 480. Back to normal.";
-    });
-
-    document.getElementById("home-button").addEventListener("click", () => {
-        frame.src = "index.html";
-        status.textContent = "Home button pressed. Very satisfying click.";
-    });
-
-    function updateClock() {
-        clock.textContent = new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
-    }
-    updateClock();
-    setInterval(updateClock, 30000);
-</script>
+<script src="src/mobile.js" defer></script>
 
 </body>
 </html>

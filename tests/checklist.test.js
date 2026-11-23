@@ -3,6 +3,7 @@ import {
     calculateProgress,
     isComplete,
     isValidEmail,
+    parseTasks,
     removeTask
 } from "../src/checklist.js";
 
@@ -93,5 +94,31 @@ describe("isValidEmail", () => {
     test("non-string input fails", () => {
         expect(isValidEmail(null)).toBe(false);
         expect(isValidEmail(123)).toBe(false);
+    });
+});
+
+describe("parseTasks", () => {
+    const defaults = [{ text: "Feed the cat", completed: false, isDefault: true }];
+
+    test("nothing saved yet gives the defaults, not an error", () => {
+        expect(parseTasks(null, defaults)).toEqual({ tasks: defaults, loadFailed: false });
+    });
+
+    test("valid saved tasks are returned as they are", () => {
+        const saved = [{ text: "Buy cat food", completed: true, isDefault: false }];
+        expect(parseTasks(JSON.stringify(saved), defaults)).toEqual({ tasks: saved, loadFailed: false });
+    });
+
+    test.each(["not json{", "null", "{}", "[{\"text\":1}]"])(
+        "%s falls back to the defaults and reports a failure",
+        (savedValue) => {
+            expect(parseTasks(savedValue, defaults)).toEqual({ tasks: defaults, loadFailed: true });
+        }
+    );
+
+    test("returns copies, so changing a task never changes the defaults", () => {
+        const { tasks } = parseTasks(null, defaults);
+        tasks[0].completed = true;
+        expect(defaults[0].completed).toBe(false);
     });
 });

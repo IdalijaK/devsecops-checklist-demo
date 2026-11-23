@@ -8,9 +8,9 @@ export class MobilePage extends BasePage {
 
     constructor(page: Page) {
         super(page);
-        this.phone = page.locator("#phone");
+        this.phone = page.locator("#phone"); // no role to target: a decorative frame, so a stable ID is the fallback
         this.rotateButton = page.getByRole("button", { name: "Rotate phone" });
-        this.status = page.locator("#phone-status");
+        this.status = page.getByRole("status");
     }
 
     async open() {
