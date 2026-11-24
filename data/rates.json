@@ -1,0 +1,11 @@
+{
+    "nightlyRatePence": 2500,
+    "extraCatPence": 800,
+    "medicationPence": 300,
+    "longStayNights": 7,
+    "longStayDiscountPercent": 10,
+    "maxNights": 28,
+    "maxCats": 3,
+    "freeCancellationDays": 2,
+    "lateCancellationPercent": 50
+}

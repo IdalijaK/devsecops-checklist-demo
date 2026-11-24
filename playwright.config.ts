@@ -31,6 +31,8 @@ export default defineConfig({
         use: {
         ...devices["Desktop Chrome"],
         baseURL: "http://127.0.0.1:8000",
+        timezoneId: "Europe/London",     // same time zone on every machine, so date tests behave the same
+        locale: "en-GB",                 // UK date and currency formats
         screenshot: "only-on-failure",   // picture of the page when a test fails
         video: "off",                    // the trace covers debugging
         trace: "retain-on-failure"       // step-by-step recording, kept only for failed tests
