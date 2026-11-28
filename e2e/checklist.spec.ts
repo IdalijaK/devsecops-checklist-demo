@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { ChecklistPage } from "./pages/checklist.page";
 import { checklistData } from "./test-data/site-data";
+import { defaultTasks } from "./test-data/tasks";
 
 test.describe("cat checklist", () => {
     test("shows the checklist percentage as tasks are completed", async ({ page }) => {
@@ -10,12 +11,6 @@ test.describe("cat checklist", () => {
 
         await expect(checklist.progress).toHaveText(checklistData.initialProgress);
 
-        const defaultTasks = [
-            "Feed the cat",
-            "Change the cat's water",
-            "Play with the cat",
-            "Brush the cat's teeth"
-        ];
         const progressValues = [
             checklistData.quarterProgress,
             checklistData.halfProgress,
@@ -23,8 +18,8 @@ test.describe("cat checklist", () => {
             checklistData.fullyCompleteProgress
         ];
 
-        for (let index = 0; index < defaultTasks.length; index++) {
-            await checklist.taskCheckbox(defaultTasks[index]).check();
+        for (const [index, task] of defaultTasks.entries()) {
+            await checklist.taskCheckbox(task).check();
             await expect(checklist.progress).toHaveText(progressValues[index]);
         }
     });
@@ -49,7 +44,7 @@ test.describe("cat checklist", () => {
 
         await checklist.removeTask(checklistData.customTask);
         await expect(checklist.taskItems).toHaveCount(checklistData.defaultTaskCount);
-        await expect(page.getByRole("checkbox", { name: "Feed the cat" })).toBeVisible();
+        await expect(checklist.taskCheckbox(defaultTasks[0])).toBeVisible();
 
         await page.reload();
         await expect(checklist.taskCheckbox(checklistData.customTask)).toHaveCount(0);
@@ -59,9 +54,7 @@ test.describe("cat checklist", () => {
         test(`falls back to the default tasks when saved data is ${savedValue}`, async ({ page }) => {
             const checklist = new ChecklistPage(page);
             await checklist.seedSavedTasks(savedValue);
-
             await checklist.open();
-
             await expect(checklist.taskItems).toHaveCount(checklistData.defaultTaskCount);
             await expect(checklist.taskStatus).toHaveText(checklistData.loadFailedMessage);
         });
@@ -71,9 +64,7 @@ test.describe("cat checklist", () => {
         const checklist = new ChecklistPage(page);
         await checklist.open();
         await checklist.addTask(checklistData.customTask);
-
         await checklist.removeTask(checklistData.customTask);
-
         await expect(checklist.taskInput).toBeFocused();
     });
 });
